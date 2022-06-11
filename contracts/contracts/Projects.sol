@@ -57,10 +57,13 @@ contract Projects is Ownable, ReentrancyGuard {
         onlyOwner
         nonReentrant
     {
-        require(reservedFunds <= address(this).balance, "Contract balance too low");
-        require(projects[_project].endDate >= block.timestamp,"Project ended");
+        require(projects[_project].endDate >= block.timestamp, "Project ended");
         reservedFunds += _amount;
         funds[_project] += _amount;
+        require(
+            reservedFunds <= address(this).balance,
+            "Contract balance too low"
+        );
         emit FundsAdded(_project, _amount);
     }
 
@@ -68,9 +71,15 @@ contract Projects is Ownable, ReentrancyGuard {
         uint256 fundAmount = funds[_project];
         address projectOwner = projects[_project].owner;
         funds[_project] = 0;
-        require(projectOwner == msg.sender, "Only project owner can withdraw funds");
+        require(
+            projectOwner == msg.sender,
+            "Only project owner can withdraw funds"
+        );
         require(funds[_project] > 0, "No funds to withdraw");
-        require(address(this).balance >= fundAmount, "Contract balance too low");
+        require(
+            address(this).balance >= fundAmount,
+            "Contract balance too low"
+        );
         reservedFunds -= fundAmount;
         (bool success, ) = projectOwner.call{value: fundAmount}("");
         require(success, "Transfer failed.");
@@ -78,10 +87,13 @@ contract Projects is Ownable, ReentrancyGuard {
     }
 
     function endProject(bytes32 _project) external onlyOwner {
-        require(projects[_project].endDate >= block.timestamp, "Project already ended");
+        require(
+            projects[_project].endDate >= block.timestamp,
+            "Project already ended"
+        );
         projects[_project].endDate = block.timestamp;
         uint256 fundAmount = funds[_project];
-        if(fundAmount > 0) {
+        if (fundAmount > 0) {
             funds[_project] = 0;
             reservedFunds -= fundAmount;
         }
