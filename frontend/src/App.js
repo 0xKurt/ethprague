@@ -1,14 +1,15 @@
 import './App.css';
 import Web3Wrapper from './web3/wrapper/Web3Wrapper';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Index from './pages/Index';
+import Home from './pages/Home';
 
 const wrapperConfig = {
-  network: 137,
-  rpc: 'https://polygon-mainnet.g.alchemy.com/v2/HH-qU-iwvntnlUaqXO91YSqWmlLIGpRS',
+  infura: '',
+  network: 80001,
+  rpc: 'https://polygon-mumbai.g.alchemy.com/v2/0NNPYrUw2G92VSsJG-bezGptnY5g4Dlt',
   blockexplorer: {
-    url: 'https://polygonscan.com',
-    name: 'polygonscan'
+    url: 'https://mumbai.polygonscan.com/',
+    name: 'mumbaiscan'
   },
 }
 
@@ -19,8 +20,9 @@ function App() {
       <Web3Wrapper config={wrapperConfig}>
         <Router>
           <Switch>
-            <Route path='/'>
-              <Index />
+
+            <Route exact path='/'>
+              <Home />
             </Route>
 
           </Switch>

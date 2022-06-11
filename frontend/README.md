@@ -1,30 +1,3 @@
-Deploy /contract/GiveAway.sol or use existing one
-
-constructor args:
-	_token: address of the give away token (e.g. oUSDC)
-	_startDate: timestamp of start date (e.g. 1654596487)
-	_endDate: timestamp of start date (e.g. 1656626399)
-	_amount: claimable amount of _token per voucher
-	
-	
-	*note: setting _endDate to zero stops the contract
-	
-	since there are setter available for startDate, endDate and the claimable amount, the values can be changed at any time.
-	
-	
-If needed, change in src/pages/index.jsx line 11 the address of the contract.
-	
-You can generate vouchers by executing scripts/generate-vouchers.js <amount> <url>
-Example: ./generate-vouchers.js 255 ams.0vix.com
-it generates 3 files with 255 vouchers.
-public-vouchers.txt: Array of public voucher codes. 
-	to add the vouchers to the contract, you can add the code array to by calling contract.addVouchers(["0x...", "0x...", ..])
-	
-private-vouchers.txt: contains an array of addresses used for the QR codes
-
-vouchers-full.txt: can be ignored.
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -3,36 +3,31 @@ import { useCallContract } from ".";
 import { fromWeiToFixed, isAddress } from "../utils/func";
 import useTriggerEvent from './internal/useTriggerEvent'
 import Erc20Abi from '../utils/Erc20Abi.json'
-import useEmptyWeb3 from "./internal/useEmptyWeb3";
 
 const useErc20BalanceOf = (token, user, n) => {
-  const call = useCallContract();
+  const { callResult, call } = useCallContract();
   const [balance, setBalance] = useState('');
-  const { event, trigger} = useTriggerEvent();
-  const web3 = useEmptyWeb3();
+  const { event, } = useTriggerEvent();
 
   const checkAddress = (address) => {
     return isAddress(address);
   }
 
-  const func = async () => {
+  useEffect(async () => {
     if (!token || !user || !checkAddress(token) || !checkAddress(user)) {
-      setBalance('0.00');
+      setBalance('0.0');
     } else {
-      let result = await call({
+      call({
         address: token,
         abi: Erc20Abi,
         method: 'balanceOf',
         args: [user]
-      })
-      setBalance(fromWeiToFixed(web3.eth.abi.decodeParameter("uint256", result.toString()), n ? n : 3));
-
+      }).then(setBalance(fromWeiToFixed(callResult, n ? n : 3)))
+        .catch((error) => {
+          console.log(error)
+        })
     }
-
-  }
-  useEffect(() => {
-    func();
-  });
+  }, [user, callResult, event]);
 
   return (
     balance

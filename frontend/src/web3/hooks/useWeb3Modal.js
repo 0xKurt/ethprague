@@ -2,6 +2,8 @@ import { Biconomy } from "@biconomy/mexa";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
+import Portis from "@portis/web3";
+import Torus from "@toruslabs/torus-embed";
 
 import useConnectedAccount from './useConnectedAccount';
 import useConnectedProvider from './useConnectedProvider';
@@ -12,7 +14,6 @@ import useConnectedNetworkName from './useConnectedNetworkName'
 import { getChainName } from '../utils/networks';
 import { useReadState } from ".";
 import { isWalletConnect } from "../utils/func";
-import useTriggerEvent from "./internal/useTriggerEvent";
 
 let _provider = '';
 let _web3 = '';
@@ -25,13 +26,11 @@ const useWeb3Modal = () => {
   const { web3, setWeb3 } = useConnectedWeb3();
   const { networkId, setNetworkId } = useConnectedNetworkId();
   const { networkName, setNetworkName } = useConnectedNetworkName();
-  const { event, trigger} = useTriggerEvent();
 
   const BICONOMY = useReadState('biconomy')
   const BICONOMY_KEY = useReadState('biconomy_key')
   const INFURA_API_KEY = useReadState('infura')
   const PORTIS_KEY = useReadState('portis')
-  const RPC = useReadState('rpc')
 
   const providerOptions = {
     // Example with injected _providers
@@ -52,14 +51,8 @@ const useWeb3Modal = () => {
       },
       package: WalletConnectProvider,
       options: {
-        rpc: {
-            // @ts-ignore
-            80001: RPC,
-            // @ts-ignore
-            137: RPC,
-        },
-        chainId: 137,
-      },
+        infuraId: INFURA_API_KEY, // required
+      }
     },
     display: {
       description: "Verbinde dich mit einem Social Media Account"
@@ -83,7 +76,6 @@ const useWeb3Modal = () => {
     try {
       _provider = await web3Modal.connect();
       setProvider(_provider);
-      trigger();
       if (BICONOMY == 'true') {
         _biconomy = new Biconomy(_provider, { apiKey: BICONOMY_KEY, debug: true });
         _web3 = new Web3(_biconomy);
@@ -91,7 +83,6 @@ const useWeb3Modal = () => {
         _web3 = new Web3(_provider);
       }
       setWeb3(_web3);
-      trigger();
       _provider.on('disconnect', () => { console.log("disconnected"); })
       if (_biconomy) {
         _biconomy.onEvent(_biconomy.ERROR, (error, message) => {
@@ -101,20 +92,17 @@ const useWeb3Modal = () => {
       }
       console.log(await _web3.eth.getChainId())
       setNetworkId(await _web3.eth.getChainId())
-      trigger();
       setNetworkName(getChainName(await _web3.eth.getChainId()))
-      trigger();
 
       await _web3.eth.getAccounts(async (error, _accounts) => {
         if (_accounts.length > 0) {
           _account = _accounts[0];
           setAccount(_account)
-          trigger();
         } else {
           alert("Error 1002: No accounts found.");
         }
       });
-      trigger();
+
     } catch (err) {
       console.log(err)
       alert("Error 1001: Could not connect to web3 provider.");

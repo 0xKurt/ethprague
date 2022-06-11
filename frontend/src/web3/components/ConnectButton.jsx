@@ -62,10 +62,10 @@ const ConnectButton = (props) => {
         <GeneralButton
           onClick={connect}
           text={props.language == 'de' ? 'Verbinden' : 'Connect'}
-          color={props.color ? props.colorConnect : '#956ee0'}
+          color={props.color ? props.colorConnect : 'dodgerblue'}
           backgroundColor={props.backgroundColorConnect ? props.backgroundColorConnect : 'white'}
           hoverColor={props.hoverColorConnect ? props.hoverColorConnect : '#fafafa'}
-          caption={networkId != network && <><span>{props.language == 'de' ? 'Bitte verbinde dich mit ' : 'Connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.color ? props.colorConnect : '#956ee0' }}>{getChainName(network)}</span></>}
+          caption={networkId != network && <><span>{props.language == 'de' ? 'Bitte verbinde dich mit ' : 'Please connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.color ? props.colorConnect : 'dodgerblue' }}>{getChainName(network)}</span></>}
         />}
       {account && networkId == network &&
         <GeneralButton

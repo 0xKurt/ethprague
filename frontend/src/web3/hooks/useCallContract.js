@@ -17,21 +17,17 @@ const useCallContract = () => {
 
   const call = async (callData) => {
     const abi = new ethers.utils.Interface(callData.abi) 
-    let result;
     await web3.eth.call({
       to: callData.address,
       from: '0x0000000000000000000000000000000000000000',
       data: abi.encodeFunctionData(callData.method, callData.args)
     }).then(res => {
-      result = res;
-      return res;
-    }).catch(err => {
-      console.log(err);
-      return false;
+      setCallResult(res);
     })
-    return result;
   }
 
-  return call;
+  return ({
+    callResult, call
+  });
 }
 export default useCallContract;

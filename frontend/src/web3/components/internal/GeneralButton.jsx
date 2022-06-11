@@ -45,8 +45,8 @@ const GeneralButton = (props) => {
     <div
       onClick={props.split ? null : props.onClick}
       style={{
-        minWidth: '150px',
-        maxWidth: '150px',
+        minWidth: '220px',
+        maxWidth: '220px',
         height: '100%',
         display: 'flex',
         color: props.color,
@@ -56,8 +56,8 @@ const GeneralButton = (props) => {
         whiteSpace: 'nowrap',
         verticalAlign: 'middle',
         userSelect: 'none',
-        fontSize: '0.8rem',
-        lineHeight: '1',
+        fontSize: '1rem',
+        lineHeight: '1.5',
         borderRadius: '.25rem',
         border: '1px solid',
         backgroundColor: backgroundColor,
@@ -76,7 +76,7 @@ const GeneralButton = (props) => {
         </OverlayTrigger>}
       {props.split && !props.tooltip && miniButton}
     </div>
-    <div style={{ minWidth: '150px', maxWidth: '150px', fontSize: '.8rem' }}>
+    <div style={{ minWidth: '200px', maxWidth: '220px', fontSize: '.8rem' }}>
       {props.caption}
     </div>
   </div>

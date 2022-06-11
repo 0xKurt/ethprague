@@ -5,8 +5,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import { FaCheck } from 'react-icons/fa'
 import { ImCross } from 'react-icons/im'
-import useWindowSize from 'react-use/lib/useWindowSize'
-import Confetti from 'react-confetti'
 
 const override = css`
   display: block;
@@ -14,7 +12,6 @@ const override = css`
 `;
 
 const TransactionButton = (props) => {
-  const { width, height } = useWindowSize()
   const { provider, } = useConnectedProvider();
   const { account, } = useConnectedAccount();
   const { networkId, } = useConnectedNetworkId();
@@ -26,7 +23,7 @@ const TransactionButton = (props) => {
   const [status, setStatus] = useState('')
   const [msg, setMsg] = useState(<>&nbsp;</>)
 
-  const [onClickHandler, setOnClickHandler] = useState(() => { })
+  const [onClickHandler, setOnClickHandler] = useState(() => {})
   const [color, setColor] = useState('')
   const [backgroundColor, setBackgroundColor] = useState('')
   const [hoverColor, setHoverColor] = useState('')
@@ -34,7 +31,7 @@ const TransactionButton = (props) => {
   const [icon, setIcon] = useState(<></>)
 
   const sendTx = () => {
-    setMsg(props.language == 'de' ? 'Bitte Transaktion im Wallet bestätigen' : 'Confirm Transaction');
+    setMsg(props.language == 'de' ? 'Bitte Transaktion im Wallet bestätigen' : 'Waiting for wallet interaction');
     send({
       confirmations: props.confirmations,
       address: props.address,
@@ -45,11 +42,10 @@ const TransactionButton = (props) => {
       setStatus('hash')
       setText(props.language == 'de' ? 'Senden...' : 'Pending...')
       let url = <a target='_blank' href={blockexplorer.url + '/tx/' + hash}>{blockexplorer.name}</a>
-      setMsg(props.language == 'de' ? <>Transaktion auf {url} ansehen.</> : <>View on {url}</>)
+      setMsg(props.language == 'de' ? <>Transaktion auf {url} ansehen.</> : <>View transaction on ${url}</>)
     }).on('receipt', receipt => {
       console.log(receipt)
     }).on('confirmation', number => {
-      if(props.onSuccess) props.onSuccess();
       setStatus('confirmed')
       setText(props.language == 'de' ? 'Erfolgreich!' : 'Confirmed!')
     }).on('error', error => {
@@ -63,7 +59,7 @@ const TransactionButton = (props) => {
     setText(props.text)
     setStatus('')
     setMsg(<>&nbsp;</>)
-    setOnClickHandler(() => { })
+    setOnClickHandler(() => {})
     setColor('')
     setBackgroundColor('')
     setHoverColor('')
@@ -119,7 +115,7 @@ const TransactionButton = (props) => {
           caption={msg}
         />}
 
-      {/* Waiting for wallet interaction */}
+        {/* Waiting for wallet interaction */}
       {account && networkId == network && status == '' &&
         <GeneralButton
           onClick={sendTx}
@@ -130,7 +126,7 @@ const TransactionButton = (props) => {
           caption={msg}
         />}
 
-      {/* Pending TX */}
+        {/* Pending TX */}
       {account && networkId == network && status != '' && status != 'confirmed' && status != 'error' &&
         <GeneralButton
           onClick={() => { }}
@@ -143,9 +139,9 @@ const TransactionButton = (props) => {
           icon={<ClipLoader color={'#ffffff'} loading={true} css={override} size={18} />}
         />}
 
-      {/* Confirmed TX */}
+        {/* Confirmed TX */}
       {account && networkId == network && status != '' && status == 'confirmed' && status != 'error' &&
-        <><GeneralButton
+        <GeneralButton
           onClick={resetVars}
           text={text}
           color={props.colorConfirmed ? props.colorConfirmed : '#28a745'}
@@ -154,11 +150,9 @@ const TransactionButton = (props) => {
           caption={msg}
           split={true}
           icon={<FaCheck />}
-        />
-        </>
-      }
+        />}
 
-      {/* Failed TX */}
+        {/* Failed TX */}
       {account && networkId == network && status != '' && status != 'confirmed' && status == 'error' &&
         <GeneralButton
           onClick={resetVars}

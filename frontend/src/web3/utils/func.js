@@ -33,15 +33,3 @@ export const isWalletConnect = (w3) => {
 export const wait = (s) => { 
   return new Promise(res => setTimeout(res, s*1000));
 }
-
-export const makeHash = (value) => {
-  return Web3.utils.soliditySha3(value.toString());
-}
-
-export const decodeBool = (value) => {
-  if(value == "0x0000000000000000000000000000000000000000000000000000000000000001" 
-    || value == "true" 
-    || value == true
-    || value == "1") return true;
-  return false
-}
