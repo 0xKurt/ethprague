@@ -57,9 +57,10 @@ const MyProjects = () => {
                 <br />
                 {qsExt[i].description}
                 <br />
-                <div style={{ marginTop: "40px" }}>
+                <div style={{ marginTop: "40px", width: "100%"}}>
+                  <center>
                   {(await contract.methods.funds(project.id).call()) > 0 ?
-                    <div>
+                    <div> <center>
                       <TransactionButton
                         address={contracts.project.address}
                         abi={contracts.project.abi}
@@ -67,7 +68,9 @@ const MyProjects = () => {
                         args={[project.id]}
                         text={"Withdraw Funds"}
                       />
-            }</div> : <div>No funds</div>}
+                      </center>
+            </div> : <div>No funds</div>}
+            </center>
                 </div>
               </Accordion.Body>
             </Accordion.Item>

@@ -72,7 +72,7 @@ const ProjectList = () => {
   if (loading) return (<ClipLoader size={150} />)
 
   return (
-    <div className="col-md-5 mx-auto">
+    <div className="col-md-5 mx-auto" style={{marginTop: "40px"}}>
       <h3>Project List</h3>
       <br />
       <Accordion defaultActiveKey="0" flush>

@@ -84,7 +84,7 @@ contract Projects is Ownable, ReentrancyGuard {
             projectOwner == msg.sender,
             "Only project owner can withdraw funds"
         );
-        require(funds[_project] > 0, "No funds to withdraw");
+        require(fundAmount > 0, "No funds to withdraw");
         require(
             address(this).balance >= fundAmount,
             "Contract balance too low"
@@ -131,6 +131,14 @@ contract Projects is Ownable, ReentrancyGuard {
             result[i] = projectList.at(i);
         }
         return result;
+    }
+
+    function getProjectLength() external view returns(uint256) {
+        return projectList.length();
+    }
+
+    function getProjectAt(uint256 i) external view returns(bytes32) {
+        return projectList.at(i);
     }
 
     receive() external payable {

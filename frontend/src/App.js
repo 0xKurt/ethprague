@@ -28,7 +28,7 @@ function App() {
       <Web3Wrapper config={wrapperConfig}>
         <Navbar>
           <Container>
-            <Navbar.Brand href="home">Neighborhodli</Navbar.Brand>
+            <Navbar.Brand href="list">Neighborhodli</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="create">Create Project</Nav.Link>
               <Nav.Link href="list">Project List</Nav.Link>
