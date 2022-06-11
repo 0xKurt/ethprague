@@ -4,7 +4,11 @@ import { useCallContract, useConnectedAccount, useConnectedWeb3, useErc20Balance
 import Token from '../data/contracts/Token.json'
 import { fromWeiToFixed, toWei } from '../web3/utils/func';
 import { TransactionButton, ConnectButton } from '../web3/components';
+<<<<<<< Updated upstream
 let regex = /^(?:[0-9]\d+|\d)(?:\.\d{0,2})?$/;
+=======
+import { create } from 'ipfs-http-client';
+>>>>>>> Stashed changes
 
 const Home = () => {
   const { account, } = useConnectedAccount();
@@ -14,6 +18,7 @@ const Home = () => {
   const [inputAddress, setInputAddress] = useState('')
   const [owner, setOwner] = useState("");
   const [minter, setMinter] = useState('')
+  const client = create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
   // const { web3, }  = useConnectedWeb3()
 
   const onChangeHandler = (e) => {
