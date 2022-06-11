@@ -3,6 +3,8 @@ import Web3Wrapper from './web3/wrapper/Web3Wrapper';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const wrapperConfig = {
   infura: '',
   network: 80001,
