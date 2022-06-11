@@ -50,7 +50,6 @@ const ProjectList = () => {
   return (
     <div className="col-md-5 mx-auto">
         <h3>Project List</h3>
-        <h3>Projectlist</h3>
       <br/>
       <Accordion defaultActiveKey="0" flush>
         <Accordion.Item eventKey="0">
