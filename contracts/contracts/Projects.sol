@@ -100,6 +100,19 @@ contract Projects is Ownable, ReentrancyGuard {
         emit ProjectEnded(_project);
     }
 
+    function updateEndDate(bytes32 _project, uint256 _endDate)
+        external
+        onlyOwner
+        nonReentrant
+    {
+        require(
+            _endDate >= block.timestamp,
+            "End date must be in the future"
+        );
+        projects[_project].endDate = _endDate;
+        emit ProjectEndDateUpdated(_project, _endDate);
+    }
+
     function withdrawEther(address _to) external onlyOwner {
         (bool success, ) = _to.call{value: address(this).balance}("");
         require(success, "Transfer failed.");
@@ -120,4 +133,5 @@ contract Projects is Ownable, ReentrancyGuard {
     event FundsAdded(bytes32 indexed project, uint256 amount);
     event FundsWithdrawn(bytes32 indexed project, uint256 amount);
     event ProjectEnded(bytes32 indexed project);
+    event ProjectEndDateUpdated(bytes32 indexed project, uint256 endDate);
 }
