@@ -4,12 +4,18 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
 contract Projects is Ownable, ReentrancyGuard {
+    using EnumerableSet for EnumerableSet.Bytes32Set;
+    EnumerableSet.Bytes32Set private projectList; // just as a work around
+
     IERC20 public token;
+    
     mapping(address => uint256) public nonces;
     mapping(bytes32 => Project) public projects;
     mapping(bytes32 => uint256) public funds;
+    
     uint256 public reservedFunds;
 
     struct Project {
@@ -20,7 +26,9 @@ contract Projects is Ownable, ReentrancyGuard {
         uint256 endDate;
     }
 
-    constructor() {}
+    constructor(IERC20 _token) {
+        token = _token;
+    }
 
     modifier onlyMember(address _account) {
         require(token.balanceOf(_account) >= 1 ether);
@@ -42,6 +50,7 @@ contract Projects is Ownable, ReentrancyGuard {
         project.endDate = _endDate;
 
         projects[project.id] = project;
+        projectList.add(project.id);
 
         emit ProjectAdded(
             project.id,
@@ -105,10 +114,7 @@ contract Projects is Ownable, ReentrancyGuard {
         onlyOwner
         nonReentrant
     {
-        require(
-            _endDate >= block.timestamp,
-            "End date must be in the future"
-        );
+        require(_endDate >= block.timestamp, "End date must be in the future");
         projects[_project].endDate = _endDate;
         emit ProjectEndDateUpdated(_project, _endDate);
     }
@@ -116,6 +122,15 @@ contract Projects is Ownable, ReentrancyGuard {
     function withdrawEther(address _to) external onlyOwner {
         (bool success, ) = _to.call{value: address(this).balance}("");
         require(success, "Transfer failed.");
+    }
+
+    function getProjects() external view returns (bytes32[] memory) {
+        bytes32[] memory result = new bytes32[](projectList.length());
+
+        for(uint256 i = 0; i < projectList.length(); i++) {
+            result[i] = projectList.at(i);
+        }
+        return result;
     }
 
     receive() external payable {
