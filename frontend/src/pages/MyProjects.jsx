@@ -3,8 +3,9 @@ import { Accordion } from 'react-bootstrap';
 import { useConnectedAccount, useEmptyWeb3, useErc20BalanceOf } from '../web3/hooks';
 import { contracts } from "../data/Contracts.json";
 import ClipLoader from "react-spinners/ClipLoader";
+import { TransactionButton } from '../web3/components';
 
-const ProjectList = () => {
+const MyProjects = () => {
   const { account, } = useConnectedAccount();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,28 +48,46 @@ const ProjectList = () => {
                 }
               })
           })
-        accordion.push(
-          <Accordion.Item eventKey={i}>
-          <Accordion.Header>{qsExt[i].name}</Accordion.Header>
-          <Accordion.Body>
-            <div style={{fontSize: "10px"}}>id: {project.id}<br /></div>
-            <br />
-            {qsExt[i].description}
-          </Accordion.Body>
-        </Accordion.Item>
-        )
+        if (qsExt[i].owner == account) {
+          accordion.push(
+            <Accordion.Item eventKey={i}>
+              <Accordion.Header>{qsExt[i].name}</Accordion.Header>
+              <Accordion.Body>
+                <div style={{ fontSize: "10px" }}>id: {project.id}<br /></div>
+                <br />
+                {qsExt[i].description}
+                <br />
+                <div style={{ marginTop: "40px" }}>
+                  {(await contract.methods.funds(project.id).call()) > 0 ?
+                    <div>
+                      <TransactionButton
+                        address={contracts.project.address}
+                        abi={contracts.project.abi}
+                        method="withdrawFunds"
+                        args={[project.id]}
+                        text={"Withdraw Funds"}
+                      />
+            }</div> : <div>No funds</div>}
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          )
+        }
       }
-      setList(accordion)
+      if(accordion.length > 0) { setList(accordion) } else {
+        setList(<p> no projects found</p>)
+      }
       setLoading(false)
     }
 
-    if (eWeb3) func();
-  }, [eWeb3])
+    if (eWeb3 && account) func();
+  }, [eWeb3, account])
 
   useEffect(() => {
 
   })
 
+  if(!account) return(<div style={{marginTop: "40px"}}>Please connect to your wallet</div>)
   if (loading) return (<ClipLoader size={150} />)
 
   return (
@@ -76,11 +95,11 @@ const ProjectList = () => {
       <h3>Project List</h3>
       <br />
       <Accordion defaultActiveKey="0" flush>
-       {list}
+        {list}
       </Accordion>
     </div>
   )
 
 }
 
-export default ProjectList;
+export default MyProjects;

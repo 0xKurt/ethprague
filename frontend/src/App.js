@@ -8,14 +8,15 @@ import ProjectList from './pages/ProjectList';
 import { TransactionButton, ConnectButton } from './web3/components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MyProjects from './pages/MyProjects';
 
 const wrapperConfig = {
   infura: '',
-  network: 80001,
-  rpc: 'https://polygon-mumbai.g.alchemy.com/v2/0NNPYrUw2G92VSsJG-bezGptnY5g4Dlt',
+  network: 4,
+  rpc: 'https://rinkeby.infura.io/v3/09bab57197a241c0a3f998bb0d80691b',
   blockexplorer: {
-    url: 'https://mumbai.polygonscan.com/',
-    name: 'mumbaiscan'
+    url: 'https://rinkeby.etherscan.io/',
+    name: 'etherscan'
   },
 }
 
@@ -27,11 +28,13 @@ function App() {
       <Web3Wrapper config={wrapperConfig}>
         <Navbar>
           <Container>
-            <Navbar.Brand href="home">Navbar</Navbar.Brand>
+            <Navbar.Brand href="home">Neighborhodli</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="home">Home</Nav.Link>
               <Nav.Link href="create">Create Project</Nav.Link>
               <Nav.Link href="list">Project List</Nav.Link>
+              <Nav.Link href="my">My Projects</Nav.Link>
+              
+              <Nav.Link target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
             </Nav>
             <ConnectButton language='en'/>
           </Container>
@@ -47,6 +50,10 @@ function App() {
             </Route>
             <Route exact path='/list'>
               <ProjectList />
+            </Route>            
+            
+            <Route exact path='/my'>
+              <MyProjects />
             </Route>
 
           </Switch>
