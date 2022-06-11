@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Stack, Button, Accordion } from 'react-bootstrap';
+import { Form, Stack, Button, Accordion, Row, Col } from 'react-bootstrap';
 import { useCallContract, useConnectedAccount, useConnectedWeb3, useErc20BalanceOf, useEthBalanceOf } from '../web3/hooks';
 import Token from '../data/contracts/Token.json'
 import { fromWeiToFixed, toWei } from '../web3/utils/func';
@@ -51,14 +51,23 @@ const Home = () => {
 
   return (
     <div className="col-md-5 mx-auto">
+      <br/>
       <ConnectButton language='en' />
-      <span />
+      <br/>
       <h3>Create Project</h3>
-      <Stack>
-        <Form>
-          <Form.Group>
-            <Form.Label>Contract Address</Form.Label>
-            <Form.Control type="text" placeholder="Enter address..." />
+      <Stack gap={2}>
+        <Form >
+          <Form.Group as={Row} className="mb-3" >
+            <Form.Label column sm={2} >Name</Form.Label>
+            <Col sm={10}>
+              <Form.Control type="text" placeholder="Enter project name..." />
+            </Col>
+
+            <Form.Label column sm={2} >Description</Form.Label>
+            <Col>
+              <Form.Control type="textarea" placeholder="Enter project description..." />
+            </Col>
+
           </Form.Group>
           <Stack gap={2} className="col-md-5 mx-auto">
             <Button variant="secondary">Save changes</Button>
@@ -66,10 +75,10 @@ const Home = () => {
           </Stack>
         </Form>
       </Stack>
-      <span />
+      <br/>
       <hr />
       <h3>Projectlist</h3>
-      <span />
+      <br/>
       <Accordion defaultActiveKey="0" flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Project #1</Accordion.Header>
