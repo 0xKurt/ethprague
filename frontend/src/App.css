@@ -1,0 +1,54 @@
+.App {
+  text-align: center;
+  background-color: #20262c;
+  min-height: 100vh;
+}
+
+.Container {
+  background-color: #20262c;
+  min-height: 100vh;
+  color: rgb(197, 197, 197);
+}
+
+
+.Wrapper {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: transparent;
+  /* z-index: 1; */
+  
+  padding-left: 25px;
+}
+
+.Box {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+  background-color: #2e343a;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 20px;
+  max-height: fit-content;
+
+  max-width: 600px;
+}
+
+.Content {
+  min-height: 250px;
+}
+
+.Center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-align: center;
+}
