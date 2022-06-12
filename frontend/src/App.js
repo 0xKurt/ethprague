@@ -9,6 +9,7 @@ import { TransactionButton, ConnectButton } from './web3/components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyProjects from './pages/MyProjects';
+import Access from './pages/Access';
 
 const wrapperConfig = {
   infura: '',
@@ -28,12 +29,12 @@ function App() {
       <Web3Wrapper config={wrapperConfig}>
         <Navbar>
           <Container>
-            <Navbar.Brand href="list">Neighborhodli</Navbar.Brand>
+            <Navbar.Brand href="/">Neighborhodli</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="create">Create Project</Nav.Link>
-              <Nav.Link href="list">Project List</Nav.Link>
+              <Nav.Link href="/">Project List</Nav.Link>
               <Nav.Link href="my">My Projects</Nav.Link>
-              
+              <Nav.Link href="my">Mint Access Token</Nav.Link>
               <Nav.Link target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
             </Nav>
             <ConnectButton language='en'/>
@@ -42,19 +43,22 @@ function App() {
         <Router>
           <Switch>
 
-            <Route exact path='/home'>
-              <Home />
-            </Route>
             <Route exact path='/create'>
               <CreateProject />
             </Route>
-            <Route exact path='/list'>
+            <Route exact path='/'>
               <ProjectList />
             </Route>            
             
             <Route exact path='/my'>
               <MyProjects />
             </Route>
+
+            <Route exact path='/access'>
+              <Access />
+            </Route>
+
+            
 
           </Switch>
         </Router>
