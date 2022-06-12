@@ -2,8 +2,6 @@ import { Biconomy } from "@biconomy/mexa";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
-import Portis from "@portis/web3";
-import Torus from "@toruslabs/torus-embed";
 
 import useConnectedAccount from './useConnectedAccount';
 import useConnectedProvider from './useConnectedProvider';
@@ -30,7 +28,6 @@ const useWeb3Modal = () => {
   const BICONOMY = useReadState('biconomy')
   const BICONOMY_KEY = useReadState('biconomy_key')
   const INFURA_API_KEY = useReadState('infura')
-  const PORTIS_KEY = useReadState('portis')
 
   const providerOptions = {
     // Example with injected _providers

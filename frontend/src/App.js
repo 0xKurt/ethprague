@@ -5,7 +5,8 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Home from './pages/Home';
 import CreateProject from './pages/CreateProject';
 import ProjectList from './pages/ProjectList';
-import { TransactionButton, ConnectButton } from './web3/components';
+import Lens from './pages/Lens'; 
+import { ConnectButton } from './web3/components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -32,6 +33,7 @@ function App() {
               <Nav.Link href="home">Home</Nav.Link>
               <Nav.Link href="create">Create Project</Nav.Link>
               <Nav.Link href="list">Project List</Nav.Link>
+              <Nav.Link href="lens">Lens</Nav.Link>
             </Nav>
             <ConnectButton language='en'/>
           </Container>
@@ -47,6 +49,9 @@ function App() {
             </Route>
             <Route exact path='/list'>
               <ProjectList />
+            </Route>
+            <Route exact path='/lens'>
+              <Lens />
             </Route>
 
           </Switch>

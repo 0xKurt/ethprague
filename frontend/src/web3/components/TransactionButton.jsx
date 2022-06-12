@@ -31,7 +31,7 @@ const TransactionButton = (props) => {
   const [icon, setIcon] = useState(<></>)
 
   const sendTx = () => {
-    setMsg(props.language == 'de' ? 'Bitte Transaktion im Wallet bestätigen' : 'Waiting for wallet interaction');
+    setMsg(props.language === 'de' ? 'Bitte Transaktion im Wallet bestätigen' : 'Waiting for wallet interaction');
     send({
       confirmations: props.confirmations,
       address: props.address,
@@ -40,18 +40,18 @@ const TransactionButton = (props) => {
       args: props.args
     }).on('transactionHash', hash => {
       setStatus('hash')
-      setText(props.language == 'de' ? 'Senden...' : 'Pending...')
+      setText(props.language === 'de' ? 'Senden...' : 'Pending...')
       let url = <a target='_blank' href={blockexplorer.url + '/tx/' + hash}>{blockexplorer.name}</a>
-      setMsg(props.language == 'de' ? <>Transaktion auf {url} ansehen.</> : <>View transaction on ${url}</>)
+      setMsg(props.language === 'de' ? <>Transaktion auf {url} ansehen.</> : <>View transaction on ${url}</>)
     }).on('receipt', receipt => {
       console.log(receipt)
     }).on('confirmation', number => {
       setStatus('confirmed')
-      setText(props.language == 'de' ? 'Erfolgreich!' : 'Confirmed!')
+      setText(props.language === 'de' ? 'Erfolgreich!' : 'Confirmed!')
     }).on('error', error => {
-      setText(props.language == 'de' ? 'Error!' : 'Failed!')
+      setText(props.language === 'de' ? 'Error!' : 'Failed!')
       setStatus('error')
-      setMsg(props.language == 'de' ? 'Ein Fehler ist aufgetreten' : 'An error occured')
+      setMsg(props.language === 'de' ? 'Ein Fehler ist aufgetreten' : 'An error occured')
     })
   }
 

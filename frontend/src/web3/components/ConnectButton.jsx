@@ -61,35 +61,35 @@ const ConnectButton = (props) => {
       {!account &&
         <GeneralButton
           onClick={connect}
-          text={props.language == 'de' ? 'Verbinden' : 'Connect'}
+          text={props.language === 'de' ? 'Verbinden' : 'Connect'}
           color={props.color ? props.colorConnect : 'dodgerblue'}
           backgroundColor={props.backgroundColorConnect ? props.backgroundColorConnect : 'white'}
           hoverColor={props.hoverColorConnect ? props.hoverColorConnect : '#fafafa'}
-          caption={networkId != network && <><span>{props.language == 'de' ? 'Bitte verbinde dich mit ' : 'Please connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.color ? props.colorConnect : 'dodgerblue' }}>{getChainName(network)}</span></>}
+          caption={networkId !== network && <><span>{props.language === 'de' ? 'Bitte verbinde dich mit ' : 'Please connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.color ? props.colorConnect : 'dodgerblue' }}>{getChainName(network)}</span></>}
         />}
-      {account && networkId == network &&
+      {account && networkId === network &&
         <GeneralButton
           onClick={reconnect}
           text={account.toLowerCase().substring(0, 6) + ' ... ' + account.toLowerCase().substring(37,)}
           color={props.colorCorrect ? props.colorCorrect : '#28a745'}
           backgroundColor={props.backgroundColorCorrect ? props.backgroundColorCorrect : 'white'}
           hoverColor={props.hoverColorCorrect ? props.hoverColorCorrect : '#24823a'}
-          caption={<><span style={{ color: props.colorCorrect ? props.colorCorrect : '#208738' }}>&#10004; </span> <span>{props.language == 'de' ? 'Verbunden mit ' : 'Connected with '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.colorCorrect ? props.colorCorrect : '#28a745' }}>{networkName}</span></>}
+          caption={<><span style={{ color: props.colorCorrect ? props.colorCorrect : '#208738' }}>&#10004; </span> <span>{props.language === 'de' ? 'Verbunden mit ' : 'Connected with '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.colorCorrect ? props.colorCorrect : '#28a745' }}>{networkName}</span></>}
           split={true}
           icon={<BsGrid />}
-          tooltip={props.language == 'de' ? 'Neu verbinden' : 'Reconnect'}
+          tooltip={props.language === 'de' ? 'Neu verbinden' : 'Reconnect'}
         />}
-      {account && networkId != network &&
+      {account && networkId !== network &&
         <GeneralButton
           onClick={reconnect}
           text={account.toLowerCase().substring(0, 6) + ' ... ' + account.toLowerCase().substring(37,)}
           color={props.colorWrong ? props.colorWrong : 'indianred'}
           backgroundColor={props.backgroundColorWrong ? props.backgroundColorWrong : 'white'}
           hoverColor={props.hoverColorWrong ? props.hoverColorWrong : '#b84040'}
-          caption={<><span style={{ color: props.colorWrong ? props.colorWrong : 'indianred' }}>&#10004; </span> <span>{props.language == 'de' ? 'Bitte verbinde dich mit ' : 'Please connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.colorWrong ? props.colorWrong : 'indianred' }}>{getChainName(network)}</span></>}
+          caption={<><span style={{ color: props.colorWrong ? props.colorWrong : 'indianred' }}>&#10004; </span> <span>{props.language === 'de' ? 'Bitte verbinde dich mit ' : 'Please connect to '}</span><span style={{ marginLeft: '2px', fontWeight: '800', color: props.colorWrong ? props.colorWrong : 'indianred' }}>{getChainName(network)}</span></>}
           split={true}
           icon={<BsGrid />}
-          tooltip={props.language == 'de' ? 'Neu verbinden' : 'Reconnect'}
+          tooltip={props.language === 'de' ? 'Neu verbinden' : 'Reconnect'}
         />}
     </div>
   );
