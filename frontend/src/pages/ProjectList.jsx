@@ -47,15 +47,26 @@ const ProjectList = () => {
                 }
               })
           })
+          let ds = new Date(qsExt[i].startDate*1000);
+          let yes = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(ds);
+          let mos = new Intl.DateTimeFormat('en', { month: 'short' }).format(ds);
+          let das = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(ds);
+          console.log(`${das}-${mos}-${yes}`);
+
         accordion.push(
           <Accordion.Item eventKey={i}>
-          <Accordion.Header>{qsExt[i].name}</Accordion.Header>
-          <Accordion.Body>
-            <div style={{fontSize: "10px"}}>id: {project.id}<br /></div>
-            <br />
-            {qsExt[i].description}
-          </Accordion.Body>
-        </Accordion.Item>
+            <Accordion.Header>{qsExt[i].name}</Accordion.Header>
+            <Accordion.Body>
+              <div style={{ fontSize: "10px" }}>id: {project.id}<br /></div>
+              <br />
+              <div style={{ fontSize: "12px" }}>
+              start date: {das}-{mos}-{yes} &nbsp; &nbsp; 
+              {/* | &nbsp; &nbsp; end date: {dae}-{moe}-{yee} */}
+              </div>
+              <br />
+              {qsExt[i].description}
+            </Accordion.Body>
+          </Accordion.Item>
         )
       }
       setList(accordion)
@@ -72,11 +83,11 @@ const ProjectList = () => {
   if (loading) return (<ClipLoader size={150} />)
 
   return (
-    <div className="col-md-5 mx-auto" style={{marginTop: "40px"}}>
+    <div className="col-md-5 mx-auto" style={{ marginTop: "40px" }}>
       <h3>Project List</h3>
       <br />
       <Accordion defaultActiveKey="0" flush>
-       {list}
+        {list}
       </Accordion>
     </div>
   )

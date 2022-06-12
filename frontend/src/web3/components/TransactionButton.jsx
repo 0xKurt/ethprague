@@ -42,7 +42,7 @@ const TransactionButton = (props) => {
       setStatus('hash')
       setText(props.language == 'de' ? 'Senden...' : 'Pending...')
       let url = <a target='_blank' href={blockexplorer.url + '/tx/' + hash}>{blockexplorer.name}</a>
-      setMsg(props.language == 'de' ? <>Transaktion auf {url} ansehen.</> : <>View transaction on ${url}</>)
+      setMsg(props.language == 'de' ? <>Transaktion auf {url} ansehen.</> : <>View transaction on {url}</>)
     }).on('receipt', receipt => {
       console.log(receipt)
     }).on('confirmation', number => {

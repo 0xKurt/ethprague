@@ -83,9 +83,9 @@ const CreateProject = () => {
                         <Row sm={10}>
                             <Form.Select onChange={evt => updateInputValue("time", evt)}>
                                 <option >choose..</option>
-                                <option value={(new Date).getTime() + 1000 * 60 * 60} >1 Hour</option>
-                                <option value={(new Date).getTime() + 1000 * 60 * 60 * 24}>1 Day</option>
-                                <option value={(new Date).getTime() + 1000 * 60 * 60 * 24 * 7}>1 Week</option>
+                                <option value={(new Date).getTime() + 60 * 60} >1 Hour</option>
+                                <option value={(new Date).getTime() + 60 * 60 * 24}>1 Day</option>
+                                <option value={(new Date).getTime() + 60 * 60 * 24 * 7}>1 Week</option>
                             </Form.Select>
                         </Row>
                         <Row>
