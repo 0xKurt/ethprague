@@ -21,7 +21,7 @@ const ProjectList = () => {
       let projects = [];
       let qsExt = [];
       let accordion = [];
-      for (let i = 0; i < length; i++) {
+      for (let i = length-1; i>=0; i--) {
         const projectId = await contract.methods.getProjectAt(i).call();
         const project = await contract.methods.projects(projectId).call();
         projects.push(project);

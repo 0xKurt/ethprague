@@ -35,7 +35,7 @@ function App() {
                 <Nav.Link as={Link} to="/">Project List</Nav.Link>
                 <Nav.Link as={Link} to="my">My Projects</Nav.Link>
                 <Nav.Link as={Link} to="access">Mint Access Token</Nav.Link>
-                <Nav.Link as={Link} target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
+                <Nav.Link target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
               </Nav>
               <ConnectButton language='en' />
             </Container>

@@ -22,7 +22,7 @@ const MyProjects = () => {
       let projects = [];
       let qsExt = [];
       let accordion = [];
-      for (let i = 0; i < length; i++) {
+      for (let i = length - 1; i >= 0; i--) {
         const projectId = await contract.methods.getProjectAt(i).call();
         const project = await contract.methods.projects(projectId).call();
         projects.push(project);
@@ -57,27 +57,27 @@ const MyProjects = () => {
                 <br />
                 {qsExt[i].description}
                 <br />
-                <div style={{ marginTop: "40px", width: "100%"}}>
+                <div style={{ marginTop: "40px", width: "100%" }}>
                   <center>
-                  {(await contract.methods.funds(project.id).call()) > 0 ?
-                    <div> <center>
-                      <TransactionButton
-                        address={contracts.project.address}
-                        abi={contracts.project.abi}
-                        method="withdrawFunds"
-                        args={[project.id]}
-                        text={"Withdraw Funds"}
-                      />
+                    {(await contract.methods.funds(project.id).call()) > 0 ?
+                      <div> <center>
+                        <TransactionButton
+                          address={contracts.project.address}
+                          abi={contracts.project.abi}
+                          method="withdrawFunds"
+                          args={[project.id]}
+                          text={"Withdraw Funds"}
+                        />
                       </center>
-            </div> : <div>No funds</div>}
-            </center>
+                      </div> : <div>No funds</div>}
+                  </center>
                 </div>
               </Accordion.Body>
             </Accordion.Item>
           )
         }
       }
-      if(accordion.length > 0) { setList(accordion) } else {
+      if (accordion.length > 0) { setList(accordion) } else {
         setList(<p> no projects found</p>)
       }
       setLoading(false)
@@ -90,7 +90,7 @@ const MyProjects = () => {
 
   })
 
-  if(!account) return(<div style={{marginTop: "40px"}}>Please connect to your wallet</div>)
+  if (!account) return (<div style={{ marginTop: "40px" }}>Please connect to your wallet</div>)
   if (loading) return (<ClipLoader size={150} />)
 
   return (
