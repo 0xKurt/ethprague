@@ -1,6 +1,6 @@
 import './App.css';
 import Web3Wrapper from './web3/wrapper/Web3Wrapper';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Home from './pages/Home';
 import CreateProject from './pages/CreateProject';
@@ -25,22 +25,22 @@ const wrapperConfig = {
 function App() {
   return (
     <div className="App">
-
       <Web3Wrapper config={wrapperConfig}>
-        <Navbar>
-          <Container>
-            <Navbar.Brand href="/">Neighborhodli</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="create">Create Project</Nav.Link>
-              <Nav.Link href="/">Project List</Nav.Link>
-              <Nav.Link href="my">My Projects</Nav.Link>
-              <Nav.Link href="access">Mint Access Token</Nav.Link>
-              <Nav.Link target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
-            </Nav>
-            <ConnectButton language='en'/>
-          </Container>
-        </Navbar>
         <Router>
+          <Navbar>
+            <Container>
+              <Navbar.Brand href="/">Neighborhodli</Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="create">Create Project</Nav.Link>
+                <Nav.Link as={Link} to="/">Project List</Nav.Link>
+                <Nav.Link as={Link} to="my">My Projects</Nav.Link>
+                <Nav.Link as={Link} to="access">Mint Access Token</Nav.Link>
+                <Nav.Link as={Link} target="_blank" href="https://www.tally.xyz/governance/eip155:4:0x06FCB3Efe8BA39B331D00C4AC245ed2521D79e0e">Vote</Nav.Link>
+              </Nav>
+              <ConnectButton language='en' />
+            </Container>
+          </Navbar>
+
           <Switch>
 
             <Route exact path='/create'>
@@ -48,8 +48,8 @@ function App() {
             </Route>
             <Route exact path='/'>
               <ProjectList />
-            </Route>            
-            
+            </Route>
+
             <Route exact path='/my'>
               <MyProjects />
             </Route>
@@ -58,12 +58,12 @@ function App() {
               <Access />
             </Route>
 
-            
+
 
           </Switch>
         </Router>
       </Web3Wrapper>
-    </div>
+    </div >
   );
 }
 

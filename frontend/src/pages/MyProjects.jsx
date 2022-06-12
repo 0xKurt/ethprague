@@ -95,7 +95,7 @@ const MyProjects = () => {
 
   return (
     <div className="col-md-5 mx-auto">
-      <h3>Project List</h3>
+      <h3>My Projects</h3>
       <br />
       <Accordion defaultActiveKey="0" flush>
         {list}
